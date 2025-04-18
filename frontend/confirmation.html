@@ -5,25 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ByteByBit - Order Confirmation</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&display=swap" rel="stylesheet" />
+
 </head>
 <body>
-    <header>
-        <h1>Thank You for Your Purchase!</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="store.html">Store</a>
-        </nav>
+    <header class="confirmation-header">
+        <div class="header-container">
+            <h1>Thank You for Your Purchase!</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="store.html">Store</a>
+            </nav>
+        </div>
     </header>
+    
+    
     <main>
-        <section>
-            <p>Your order has been placed successfully.</p>
-            <p>You will receive an email confirmation shortly.</p>
+        <section class="confirmation-container">
+          <p class="thank-you-message">Your order has been placed successfully.</p>
+          <p>You will receive an email confirmation shortly.</p>
+          
+          <div class="order-summary-box">
             <h2>Order Summary</h2>
             <ul id="order-summary"></ul>
-            <p><strong>Total: $<span id="order-total">0.00</span></strong></p>
-            <a href="store.html">Continue Shopping</a>
+            <p class="order-total"><strong>Total: $<span id="order-total">0.00</span></strong></p>
+          </div>
+      
+          <a class="cta-button" href="store.html">Continue Shopping</a>
         </section>
-    </main>
+      </main>
+<footer>
+    <p>&copy; 2025 ByteByBit. All rights reserved</p>
+</footer>      
     <script src="js/confirmation.js"></script>
 </body>
 </html>

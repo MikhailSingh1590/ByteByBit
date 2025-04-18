@@ -8,9 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (order.length > 0) {
         order.forEach(item => {
-            total += item.price;
+            const price = item.price || 0;
+            const name = item.productName || "Unnamed Product";
+            total += price;
+
             let li = document.createElement("li");
-            li.textContent = `${item.productName} - $${item.price.toFixed(2)}`;
+            li.textContent = `${name} - $${price.toFixed(2)}`;
             orderSummary.appendChild(li);
         });
     } else {
@@ -18,5 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     orderTotal.textContent = total.toFixed(2);
-    sessionStorage.removeItem("order"); // Clear after displaying
+
+    // Generate and show order number
+    const orderNumber = Math.floor(100000 + Math.random() * 900000); // 6-digit
+    const section = document.querySelector("main section");
+    const orderNumDisplay = document.createElement("p");
+    orderNumDisplay.innerHTML = `Your order number is <strong>#${orderNumber}</strong>.`;
+    section.insertBefore(orderNumDisplay, orderSummary);
+
+    // Clear sessionStorage after displaying
+    sessionStorage.removeItem("order");
 });

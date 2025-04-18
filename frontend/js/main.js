@@ -83,3 +83,39 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Load cart from localStorage
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartList = document.getElementById('cart-summary-list');
+    const totalDisplay = document.getElementById('cart-summary-total');
+  
+    if (cartList && totalDisplay) {
+      let total = 0;
+      cartItems.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price} x ${item.quantity}`;
+        cartList.appendChild(li);
+        total += item.price * item.quantity;
+      });
+      totalDisplay.textContent = total.toFixed(2);
+    }
+  
+    // Form validation for email
+    const checkoutForm = document.getElementById('checkoutForm');
+    if (checkoutForm) {
+      checkoutForm.addEventListener('submit', e => {
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        if (!emailInput.value.includes('@')) {
+          e.preventDefault();
+          emailError.textContent = "Please enter a valid email address.";
+          emailError.style.color = "red";
+        } else {
+          emailError.textContent = "";
+        }
+      });
+    }
+  });
+  

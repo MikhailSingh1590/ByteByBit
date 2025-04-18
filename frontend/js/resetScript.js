@@ -6,27 +6,52 @@ document.getElementById("resetPasswordForm").addEventListener("submit", async (e
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token"); // Assuming token is in the query params
 
+    const resetMessageElement = document.getElementById("resetMessage");
+    const submitButton = document.querySelector("button[type='submit']");
+
+    // Clear any previous messages
+    resetMessageElement.textContent = "";
+    
     if (newPassword !== confirmPassword) {
-        document.getElementById("resetMessage").textContent = "Passwords do not match!";
+        resetMessageElement.textContent = "Passwords do not match!";
+        resetMessageElement.style.color = "red";
         return;
     }
 
-    const response = await fetch("http://localhost:5000/api/auth/reset-password", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ token, newPassword })
-    });
+    // Show loading message and disable the submit button
+    submitButton.disabled = true;
+    resetMessageElement.textContent = "Processing your request...";
+    resetMessageElement.style.color = "blue";
 
-    const data = await response.json();
-    const messageElement = document.getElementById("resetMessage");
+    try {
+        const response = await fetch("http://localhost:5000/api/auth/reset-password", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token, newPassword })
+        });
 
-    if (response.ok) {
-        messageElement.textContent = "Password reset successful. You can now login with your new password.";
-        messageElement.style.color = "green";
-    } else {
-        messageElement.textContent = data.message || "Error occurred, try again.";
-        messageElement.style.color = "red";
+        const data = await response.json();
+
+        if (response.ok) {
+            resetMessageElement.textContent = "Password reset successful. You can now login with your new password.";
+            resetMessageElement.style.color = "green";
+            document.getElementById("resetPasswordForm").reset();  // Clear form fields
+
+            // Optionally, redirect to the login page after a few seconds
+            setTimeout(() => {
+                window.location.href = "/login.html";  // Adjust the path accordingly
+            }, 2000);
+        } else {
+            resetMessageElement.textContent = data.message || "Error occurred, try again.";
+            resetMessageElement.style.color = "red";
+        }
+    } catch (error) {
+        resetMessageElement.textContent = "An error occurred. Please try again later.";
+        resetMessageElement.style.color = "red";
+    } finally {
+        // Re-enable the submit button
+        submitButton.disabled = false;
     }
 });
