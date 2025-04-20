@@ -11,12 +11,23 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-logo">ByteByBit</div>
-    <ul>
+  
+    <div class="burger" id="burger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="store.html">Store</a></li>
       <li><a href="cart.html">Cart</a></li>
       <li><a href="login.html">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="account.html">Account</a></li>
     </ul>
-  </nav>
+  </nav>  
+  
 
   <!-- Hero Section -->
   <section class="hero">
@@ -47,5 +58,19 @@
   <footer class="footer">
     <p>&copy; 2025 ByteByBit. Built by gamers, for gamers.</p>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.getElementById('burger-btn');
+      const navLinks = document.getElementById('nav-links');
+
+      burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    });
+  </script>
+
+<script src="../frontend/js/main.js"></script>
+
 </body>
 </html>
